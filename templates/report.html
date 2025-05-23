@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FLOWS</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/styles.v=1.3.css">
+    
+</head>
+<body>
+    <!-- Navbar -->
+    <header>
+        <nav class="navbar navbar-expand-lg sticky-top bg-white">
+            <div class="container px-5 py-1">
+                <a class="navbar-brand" href="/index">
+                    <img src="../static/logo.png" alt="Flows Logo" width="50" height="45">
+                </a>
+                <button class="navbar-toggler border-0 ms-auto" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
+                    aria-label="Toggle navigation" href="/">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+        
+                <div class="collapse navbar-collapse fw-semibold justify-content-end" id="navbarNavDropdown">
+                    <ul class="navbar-nav ms-auto align-items-lg-center align-items-end">
+                        <li class="nav-item ">
+                            <a class="nav-link fs-6 mx-2 fw-semibold underline-image main-nav-link" href="/floodmap">Flood Extent Map</a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link fs-6 fw-semibold mx-2 " href="/report">Reports</a>
+                        </li> 
+                        <li class="nav-item ">
+                            <a class="nav-link fs-6 fw-semibold mx-2 " href="/about">About</a>
+                        </li>  
+                        <li class="nav-item ">
+                            <a class="btn btn-darkBlue rounded-pill fw-semibold m-2 px-4 fs-6" href="https://drive.google.com/file/d/1QaqgTMnCULeN42uzdxNoRuxhj_3yaH96/view?usp=sharing" target="_blank">Read the Paper</a>
+                        </li>                    
+                    </ul>
+                </div>
+            </div>
+        </nav>    
+    </header>
+
+
+
+    <!-- Contact Us -->
+    <section id="Barangay">
+        <div class="container p-2 mt-4"  data-aos="fade-up" data-aos-duration="1500" data-aos-once="true">
+            <h2 class="fw-bold text-darkOrange text-center" >Flood Level Reports</h2>
+            <div class="card border-0 rounded-5 shadow-sm p-4 my-4 mx-5" style="background-color: #ECF3F9;">
+                <div class="card-body">
+                    <h5 class="fs-4 fw-bold" style="color: #0a2e64">Barangay Flood Levels <span class="fw-medium">for</span> <span id="report-date1"></span></h5>
+                    <h6 class="fw-medium text-dark">These are based on the max flood level that was predicted within the boundaries of the barangay, including the river section.</h6>
+                    <div id="barangay-grid-container" class="table-responsive">
+                        <div class="col-12">
+                             <p id="barangay-loading" class="loading-message">Loading Barangay Data...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card border-0 rounded-5 shadow-sm p-4 my-4 mx-5" style="background-color: #ECF3F9;">
+                <div class="card-body">
+                    <h5 class="fs-4 fw-bold" style="color: #0a2e64">Critical Facilities Flood Levels <span class="fw-medium">for</span> <span id="report-date2"></span></h5>
+                    <h6 class="fw-medium text-dark">These are essential public structures such as hospitals, schools, evacuation centers, or government offices near your selected location.</h6>
+                    <div class="btn-group p-2 ce" role="group" aria-label="Basic example" id="filter-buttons"></div>
+                    <div id="critical-facilities-grid-container" class="table-responsive">
+                        <div class="col-12">
+                             <p id="barangay-loading" class="loading-message">Loading Barangay Data...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      
+    </section>
+    
+    <!-- Footer -->
+    <footer class="content-footer footer bg-darkBlue">
+        <section id="contactinfo" >
+            <div class="container px-5 mt-2" >
+                <div class="row gx-5 gy-3 py-4 align-items-center">
+                    <div class="col-xl-7 col-lg-6 col-md-6">
+                        <div class="row gy-2">
+                            <div class="col-12 col-xl-7">
+                                <img src="../static/logo_full.svg" alt="Logo">
+                            </div>
+                            <div class="col-12 col-xl-5">
+                                
+                                <h6 class="fw-semibold lh-sm text-white fs-6 mt-2">In Partnership with</h6>
+                                <div class="d-flex flex-row mt-2 gap-2">
+                                    <img src="../static/logo_cbsua.png" alt="Bagong_Pilipinas_Logo"
+                                        width="50px" height="50px">
+                                    <img src="../static/logo_pagasa.svg"
+                                            alt="GPPB_Logo" width="50px" height="50px"></a>
+                                    <img src="../static/logo_cadressmo.png"
+                                        alt="Philippine_Transparency_Seal" width="50px" height="50px">
+                                </div>
+                                
+                            </div>
+                        </div>
+                        
+                       
+                    </div>
+                    
+                    <div class="col-xl-5 col-lg-6 col-md-12">
+                        <h6 class="fw-semibold lh-sm text-white fs-4 m-0">Disclaimer</h6>
+                        <h6 class="fw-normal pt-1 text-white fs-6 lh-sm">
+                            FLOWS is an initial release from a research study and only provides predictions based on the methods described in the paper. The developers and researchers are not responsible for any damages or losses that may occur from using this website or its features.
+                        </h6>
+                        
+                        
+                    </div>
+    
+                </div>
+            </div>
+        </section>
+    </footer>
+    <!-- Scripts -->
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+        const barangayCsvUrl = '../static/reports/barangay_flood_report.csv';
+        const facilityCsvUrl = '../static/reports/critical_facilities_flood_report.csv';
+
+        const barangayCardContainerId = 'barangay-report-container';
+        const facilityCardContainerId = 'facility-cards-container';
+        const barangayErrorId = 'barangay-error';
+        const facilityErrorId = 'facility-error';
+        const barangayLoadingId = 'barangay-loading';
+        const facilityLoadingId = 'facility-loading';
+        const lastUpdatedId = 'data-last-updated'; // Optional
+
+        function parseCsvLine(text) {
+            const result = [];
+            // Regex to split by comma, but not inside quotes. Handles simple cases.
+            // May need refinement for escaped quotes within quotes.
+            const regex = /,(?=(?:[^"]*"[^"]*")*[^"]*$)/;
+            let current = 0;
+            const parts = text.split(regex);
+
+            for (const part of parts) {
+                // Trim whitespace and remove surrounding quotes if present
+                let value = part.trim();
+                if (value.startsWith('"') && value.endsWith('"')) {
+                    value = value.substring(1, value.length - 1).replace(/""/g, '"'); // Handle escaped double quotes ("") inside
+                }
+                result.push(value);
+            }
+            return result;
+        }
+
+        function getFloodBadge(level) {
+            const lower = level.toLowerCase();
+            if (lower.includes('high')) return `<span class="badge rounded-pill fw-medium py-2 px-3" style="background-color: #EC2F1D">High</span>`;
+            if (lower.includes('moderate')) return `<span class="badge rounded-pill fw-medium py-2 px-3" style="background-color: #FE8926">Moderate</span>`;
+            if (lower.includes('low')) return `<span class="badge rounded-pill fw-medium py-2 px-3" style="background-color: #F4BD46">Low</span>`;
+            if (lower.includes('none')) return `<span class="badge rounded-pill fw-medium py-2 px-3" style="background-color: #387538">None</span>`;
+            return `<span class="badge bg-secondary">${level}</span>`;
+        }
+
+
+        /**
+         * Fetches a CSV file and parses it into headers and data rows.
+         * @param {string} url - The relative URL of the CSV file.
+         * @returns {Promise<{headers: string[], data: string[][]}>}
+         * A promise that resolves with an object containing headers and data,
+         * or rejects on error.
+         */
+        async function fetchAndParseCsv(url) {
+            console.log(`Attempting to fetch: ${url}`);
+            // Fetch requires the page to be served via HTTP (local server), not file:///
+            const response = await fetch(url);
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status} fetching ${url}`);
+            }
+            console.log(`Successfully fetched: ${url}`);
+
+            const csvText = await response.text();
+
+            const lines = csvText.trim().split('\n'); // Split into lines first
+            let headers = [];
+            const data = [];
+
+            if (lines.length > 0) {
+                // Parse header row using the improved function
+                const headerLine = lines[0].trim();
+                if (headerLine) {
+                    headers = parseCsvLine(headerLine);
+                } else {
+                    console.warn(`CSV file at ${url} has an empty header line.`);
+                }
+
+
+                // Parse data rows using the improved function
+                for (let i = 1; i < lines.length; i++) {
+                    const line = lines[i].trim();
+                    if (line) {
+                        const rowData = parseCsvLine(line);
+                        // Optional check: Ensure row has same number of columns as headers
+                        if (rowData.length === headers.length) {
+                            data.push(rowData);
+                        } else {
+                            console.warn(`Skipping line ${i+1} in ${url}: Column count mismatch. Expected ${headers.length}, found ${rowData.length}. Line: "${line}"`);
+                        }
+                    }
+                }
+            } else {
+                console.warn(`CSV file at ${url} is empty or contains no lines.`);
+            }
+
+            console.log(`Parsed ${data.length} data rows from ${url}.`);
+            return { headers, data };
+        }
+
+        function renderHeatmapByAmenity(facilityData) {
+            const amenityOrder = ['government', 'evacuation_center', 'police_station', 'fire_station', 'school', 'hospital', 'place_of_worship', 'miscellaneous'];
+            const container = document.getElementById("critical-facilities-grid-container");
+            container.innerHTML = ""; // Clear existing content
+
+            const headers = facilityData.headers.slice(2); // Skip Critical Facility, Amenity
+            const grouped = {};
+
+            // Group by Amenity
+            facilityData.data.forEach(row => {
+                const amenity = row[1];
+                if (!grouped[amenity]) grouped[amenity] = [];
+                grouped[amenity].push(row);
+            });
+
+            // Merge police and fire into government
+            ['police_station', 'fire_station'].forEach(type => {
+                if (grouped[type]) {
+                    if (!grouped['government']) grouped['government'] = [];
+                    grouped['government'] = grouped['government'].concat(grouped[type]);
+                    delete grouped[type];
+                }
+            });
+
+
+            // Clear and build filter buttons
+            const buttonContainer = document.getElementById("filter-buttons");
+            buttonContainer.innerHTML = "";
+
+            amenityOrder.forEach(amenityType => {
+                if (!grouped[amenityType]) return; // skip if not present
+
+                const btn = document.createElement("button");
+                btn.textContent = capitalize(amenityType.replace(/_/g, ' '));
+                btn.className = "btn btn-outline-darkBlue";
+                btn.setAttribute("data-amenity", amenityType);
+                btn.addEventListener("click", () => {
+                    // Show only the selected section
+                    document.querySelectorAll(".amenity-section").forEach(sec => {
+                        sec.style.display = sec.getAttribute("data-amenity") === amenityType ? "block" : "none";
+                    });
+
+                    // Update active button styles
+                    document.querySelectorAll("#filter-buttons button").forEach(b => b.classList.remove("active"));
+                    btn.classList.add("active");
+                });
+
+                buttonContainer.appendChild(btn);
+            });
+
+            // Create tables per Amenity group
+            amenityOrder.forEach(amenityType => {
+                const facilities = grouped[amenityType];
+                if (!facilities) return;
+
+                const section = document.createElement("div");
+                section.className = "amenity-section mb-4";
+                section.setAttribute("data-amenity", amenityType);
+
+                section.innerHTML = `<h5 class="fs-3 text-left text-darkOrange fw-bold mt-3 mb-3">${capitalize(amenityType.replace(/_/g, ' '))}</h5>`;
+
+                const table = document.createElement("table");
+                table.className = "table w-full text-center border-separate table-borderless table-responsive table-hover border-spacing-0 table-rounded";
+                table.style.borderRadius = "0.5rem";
+                table.style.overflow = "hidden";
+
+                const thead = document.createElement("thead");
+                thead.className = "text-center";
+                thead.innerHTML = `
+                    <tr class="text-white">
+                        <th class="text-center px-2 py-2 align-items-center text-white">Critical Facility</th>
+                        ${headers.map(h => `<th class="px-0 py-2 align-items-center text-white">${formatHour(h)}</th>`).join("")}
+                    </tr>
+                `;
+                table.appendChild(thead);
+
+                const tbody = document.createElement("tbody");
+
+                facilities.forEach(row => {
+                    const tr = document.createElement("tr");
+                    const name = row[0];
+                    tr.innerHTML += `<td class=" align-middle text-center px-2 py-1 fw-medium">${name}</td>`;
+
+                    row.slice(2).forEach(level => {
+                        tr.innerHTML += `
+                            <td class="text-center">${getFloodBadge(level)}</td>
+                        `;
+                    });
+
+                    tbody.appendChild(tr);
+                });
+
+                table.appendChild(tbody);
+                section.appendChild(table);
+                container.appendChild(section);
+            });
+
+            // Show the first amenity by default
+            const allSections = document.querySelectorAll(".amenity-section");
+            allSections.forEach((sec, idx) => {
+                sec.style.display = idx === 0 ? "block" : "none";
+            });
+        }
+
+
+        /** Utility to shorten timestamp into "6 PM", "7 PM", etc. */
+        function formatHour(timestamp) {
+            const date = new Date(timestamp);
+            const hour = date.getHours();
+            const ampm = hour >= 12 ? "PM" : "AM";
+            const hour12 = hour % 12 === 0 ? 12 : hour % 12;
+            return `${hour12} ${ampm}`;
+        }
+
+        /** Capitalize first letter of a word */
+        function capitalize(str) {
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        }
+
+
+        /**
+         * Main function to load data from both CSV files.
+         */
+        async function loadReportData() {
+            console.log("Loading report data...");
+            let barangayData = null;
+            let facilityData = null;
+
+            try {
+                // Fetch and parse both files concurrently
+                const [barangayResult, facilityResult] = await Promise.all([
+                    fetchAndParseCsv(barangayCsvUrl).catch(error => {
+                        console.error(`Error loading Barangay CSV: ${error.message}`);
+                        return { error: true, message: error.message }; // Return error object
+                    }),
+                    fetchAndParseCsv(facilityCsvUrl).catch(error => {
+                        console.error(`Error loading Facility CSV: ${error.message}`);
+                        return { error: true, message: error.message }; // Return error object
+                    })
+                ]);
+
+                // --- Access Barangay Data ---
+                if (!barangayResult.error && barangayResult.headers && barangayResult.data) {
+                    barangayData = barangayResult; // Store the result {headers: [], data: []}
+                    console.log("--- Barangay Data Loaded ---");
+                    console.log("Headers:", barangayData.headers);
+                    console.log("Data Rows (first 5):", barangayData.data.slice(0, 5)); // Log first 5 rows as sample
+                    console.log(`Total Barangay Rows: ${barangayData.data.length}`);
+
+                    // Extract the date portion from the second header (assuming it's like "October 23, 2024 6:00 PM")
+                    const rawDate = barangayData.headers[1]; // Skip "Barangay"
+                    const dateOnly = new Date(rawDate).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    });
+
+                    // Optional: Display the extracted date in an element with a specific ID
+                    const date1 = document.getElementById('report-date1');
+                    const date2 = document.getElementById('report-date2');
+                    if (date1 && date2) {
+                        date1.textContent = `${dateOnly}`;
+                        date2.textContent = `${dateOnly}`;
+                    }
+                    
+
+                    const container = document.getElementById('barangay-grid-container');
+
+                    // Clear container first (optional)
+                    container.innerHTML = '';
+
+                    // Create table element
+                    const table = document.createElement('table');
+                    table.className = 'mt-3 table table-borderless table-responsive text-center table-hover table-rounded';
+
+                    const thead = document.createElement('thead');
+                    const tbody = document.createElement('tbody');
+                    
+
+                    // Create header row
+                    const headerRow = document.createElement('tr');
+                    headerRow.innerHTML = barangayData.headers.map((h, i) => {
+                        if (i === 0) return `<th class="text-white">${h}</th>`;
+                        const date = new Date(h);
+                        
+                        const formatted = `${date.toLocaleTimeString([], { hour: 'numeric'})}`;
+                        return `<th class="text-white">${formatted}</th>`;
+                    }).join('');
+
+
+                    thead.appendChild(headerRow);
+
+                    // Populate table rows
+                    barangayData.data.forEach(rowArray => {
+                        const tr = document.createElement('tr');
+                        const barangayName = rowArray[0]; // First cell is Barangay
+                        tr.innerHTML = `
+                            <td class="fw-semibold" style="color: #0a2e64">${barangayName}</td>
+                            ${rowArray.slice(1).map(value => `<td class="text-center">${getFloodBadge(value)}</td>`).join('')}
+                        `;
+                        tbody.appendChild(tr);
+                    });
+
+                    table.appendChild(thead);
+                    table.appendChild(tbody);
+                    container.appendChild(table);
+
+                } else {
+                    console.error("Failed to load or parse Barangay data.");
+                    // Optionally display error on the page
+                    // document.getElementById('barangay-error-id').textContent = `Error: ${barangayResult.message || 'Could not load data'}`;
+                }
+
+                // --- Access Facility Data ---
+                if (!facilityResult.error && facilityResult.headers && facilityResult.data) {
+                    facilityData = facilityResult; // Store the result {headers: [], data: []}
+                    console.log("--- Facility Data Loaded ---");
+                    console.log("Headers:", facilityData.headers);
+                    console.log("Data Rows (first 5):", facilityData.data.slice(0, 5)); // Log first 5 rows as sample
+                    console.log(`Total Facility Rows: ${facilityData.data.length}`);
+
+                    renderHeatmapByAmenity(facilityData);
+
+                  
+
+                } else {
+                    console.error("Failed to load or parse Facility data.");
+                    // Optionally display error on the page
+                    // document.getElementById('facility-error-id').textContent = `Error: ${facilityResult.message || 'Could not load data'}`;
+                }
+
+                console.log("Data loading process complete.");
+
+            } catch (error) {
+                // This catches errors if Promise.all itself fails (less likely with individual catches)
+                console.error("An unexpected error occurred during the data loading process:", error);
+                // Optionally display a general error on the page
+            }
+        }
+
+        // Run the function when the page loads
+        document.addEventListener('DOMContentLoaded', loadReportData);
+    </script>
+</body>
+</html>

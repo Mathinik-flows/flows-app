@@ -1,0 +1,725 @@
+.text-lightGray {
+    --bs-text-opacity: 1;
+    color: #7485A7;
+}
+
+.text-darkGray {
+    --bs-text-opacity: 1;
+    color: #414D67;
+}
+
+.text-lightBlue {
+    --bs-text-opacity: 1;
+    color: #3A6EA5;
+}
+
+.text-darkBlue {
+    --bs-text-opacity: 1;
+    color: #004E98;
+}
+
+.text-lightOrange {
+    --bs-text-opacity: 1;
+    color: #FE8926;
+}
+
+.text-darkOrange {
+    --bs-text-opacity: 1;
+    color: #FF6700;
+}
+
+.text-light {
+    --bs-text-opacity: 1;
+    color: #EAECF0 !important;
+}
+
+.text-dark {
+    --bs-text-opacity: 1;
+    color: #1B2839 !important;
+}
+
+.bg-lightGray {
+    --bs-bg-opacity: 1;
+    background-color: #7485A7;
+}
+
+.bg-darkGray {
+    --bs-bg-opacity: 1;
+    background-color: #414D67;
+}
+
+.bg-lightBlue {
+    --bs-bg-opacity: 1;
+    background-color: #3A6EA5;
+}
+
+.bg-darkBlue {
+    --bs-bg-opacity: 1;
+    background-color: #004E98;
+}
+
+.bg-lightOrange {
+    --bs-bg-opacity: 1;
+    background-color: #FE8926;
+}
+
+.bg-darkOrange {
+    --bs-bg-opacity: 1;
+    background-color: #FF6700;
+}
+
+.bg-light {
+    --bs-bg-opacity: 1;
+    background-color: #EAECF0 !important;
+}
+
+.bg-dark {
+    --bs-bg-opacity: 1;
+    background-color: #1B2839 !important;
+}
+
+.text-muted {
+    --bs-text-opacity: 1;
+    color: #414D67 !important;
+}
+
+.btn-darkBlue {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: #004E98;
+    --bs-btn-border-color: #004E98;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #0a306a;
+    --bs-btn-hover-border-color: #0a2e64;
+    --bs-btn-focus-shadow-rgb: 48, 87, 145;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #0a2e64;
+    --bs-btn-active-border-color: #092b5e;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: #004E98;
+    --bs-btn-disabled-border-color: #004E98;
+}
+
+.btn-darkOrange {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: #FF6700;
+    --bs-btn-border-color: #FF6700;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #E25B00;
+    --bs-btn-hover-border-color: #E25B00;
+    --bs-btn-focus-shadow-rgb: 48, 87, 145;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #E25B00;
+    --bs-btn-active-border-color: #E25B00;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: #FF6700;
+    --bs-btn-disabled-border-color: #FF6700;
+}
+
+.btn-outline-darkBlue {
+    --bs-btn-color: #004E98;
+    --bs-btn-border-color: #004E98;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #092b5e;
+    --bs-btn-hover-border-color: #092b5e;
+    --bs-btn-focus-shadow-rgb: 13, 110, 253;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #004E98;
+    --bs-btn-active-border-color: #004E98;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #0d6efd;
+    --bs-btn-disabled-bg: transparent;
+    --bs-btn-disabled-border-color: #0d6efd;
+    --bs-gradient: none;
+}
+
+.btn-dropdown {
+    --bs-btn-color: #004E98;
+    --bs-btn-bg: #fff;
+    --bs-btn-border-color: #fff;
+    --bs-btn-hover-color: #004E98;
+    --bs-btn-hover-bg: #E6EEFA;
+    --bs-btn-hover-border-color: #E6EEFA;
+    --bs-btn-focus-shadow-rgb: 211, 212, 213;
+    --bs-btn-active-color: #004e98;
+    --bs-btn-active-bg: #fff;
+    --bs-btn-active-border-color: #babbbc;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #000;
+    --bs-btn-disabled-bg: #f8f9fa;
+    --bs-btn-disabled-border-color: #f8f9fa;
+}
+
+.dropdown-item {
+    --bs-btn-color: #004E98;
+    --bs-btn-bg: #fff;
+    --bs-btn-border-color: #fff;
+    --bs-btn-hover-color: #004E98;
+    --bs-btn-hover-bg: #E6EEFA;
+    --bs-btn-hover-border-color: #E6EEFA;
+    --bs-btn-focus-shadow-rgb: 211, 212, 213;
+    --bs-btn-active-color: #004e98;
+    --bs-btn-active-bg: #fff;
+    --bs-btn-active-border-color: #babbbc;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #000;
+    --bs-btn-disabled-bg: #f8f9fa;
+    --bs-btn-disabled-border-color: #f8f9fa;
+}
+
+
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+main {
+    flex: 1; /* Pushes the footer to the bottom */
+    display: flex;
+    justify-content: center; /* Centers horizontally */
+    align-items: center; /* Centers vertically (optional) */
+    text-align: center; /* Ensures text elements are also centered */
+}
+
+main::before {
+    content: ""; /* Required for pseudo-elements */
+    position: absolute; /* Position relative to the body */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Place the pseudo-element BEHIND the body's content */
+  
+    /* Apply the background image to the pseudo-element */
+    background-image: url('../background.png'); /* <-- UPDATE PATH */
+    background-size: cover; /* Adjust as needed (cover, contain, etc.) */
+    background-position: center center; /* Adjust as needed */
+    background-repeat: no-repeat;
+  
+    /* Set the desired opacity */
+    opacity: 0.20; /* Example: 15% opacity. Adjust between 0.0 (invisible) and 1.0 (fully opaque) */
+}
+  
+
+#map {
+    position: absolute;
+    top: 80px; /* Distance from the top */
+    bottom: 0;
+    width: 100%;
+}
+
+.card.selected-location {
+    border: 2px solid #E25B00;  /* Blue border or any style */
+    background-color: #f3e8e1;  /* Light background */
+  }
+
+.card-empty {
+    border: 2px white; /* Dashed border */
+    border-style: dashed;
+    background-color: transparent; /* Light background */
+}
+
+.facility-card {
+    cursor: pointer; /* Changes the mouse cursor to a pointer on hover */
+}
+
+/* Optional: Add a hover effect */
+.facility-card:hover {
+    background-color: #f8f9fa; /* Or any other subtle highlight color */
+    /* Add other hover styles as desired, e.g., box-shadow */
+}
+
+/* Container for the custom marker (icon + label) */
+.custom-facility-marker {
+    display: flex;
+    flex-direction: column; /* Stack icon above label */
+    align-items: center;
+    /* Prevent marker from capturing map events if not needed */
+    /* pointer-events: none;  */
+     /* Add back if you want the marker itself clickable later */
+     /* cursor: pointer; */
+  }
+  
+/* Style for the marker icon part */
+.marker-icon {
+width: 28px; /* Example size */
+height: 38px; /* Example size */
+/* --- Choose ONE way to display the icon --- */
+
+/* Option A: Use a background image */
+/* background-image: url('path/to/your/default-marker-icon.png'); !! REPLACE with your icon path !! */
+background-size: contain;
+background-repeat: no-repeat;
+background-position: center; 
+
+/* Option B: Style a div (e.g., a simple circle) */
+/* background-color: red;
+border-radius: 50%;
+border: 2px solid white;
+box-shadow: 0 2px 4px rgba(0,0,0,0.4); */
+
+/* Ensure icon doesn't capture clicks if only label is important */
+    pointer-events: none;
+}
+
+/* Style for the text label part */
+.marker-label {
+/* Position below the icon */
+margin-top: 2px; /* Adjust spacing */
+
+/* Appearance */
+background-color: rgba(255, 255, 255, 0.85); /* Semi-transparent background for visibility */
+color: #333333; /* Dark text color */
+padding: 3px 6px;
+border-radius: 4px;
+font-size: 12px; /* Adjust as needed */
+font-weight: 600; /* Bold */
+white-space: nowrap; /* Prevent text wrapping */
+text-align: center;
+box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+
+/* Allow clicking through label if needed, or keep it interactive */
+    /* pointer-events: auto; */
+}
+  
+.overlay {
+    position: absolute;
+    /* background-color: white; */
+    /* border-radius: 40px; */
+    padding: 10px;
+    top: 10px; /* Distance from the top */
+    left: 10px; /* Distance from the left */
+     /* Ensures it stays above the map */
+    z-index: 2;
+    width: 30%; /* Adjust width */
+    max-height: 100%; /* Prevent it from getting too tall */
+    transition: max-height 0.3s ease-in-out;
+    overflow-y: scroll;
+    padding-bottom: 30px;
+} 
+
+.overlay {
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox */
+}
+.overlay::-webkit-scrollbar { 
+    display: none;  /* Safari and Chrome */
+}
+
+
+@media (max-width: 992px) {
+    .overlay {
+        width: 35% !important; /* Adjusts max width for smaller screens */
+    }
+}
+
+@media (max-width: 850px) {
+    .overlay {
+        width: 40% !important; /* Adjusts max width for smaller screens */
+    }
+}
+
+
+
+/* Styling for the monitored locations panel */
+.sub-overlay {
+    max-width: 100%; /* Ensures it doesn’t exceed the overlay width */
+}
+
+.overlay-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.toggle {
+    --bs-btn-color: transparent;
+    border: none;
+    padding: 0;
+}
+
+/* Ensure search box is above other elements */
+.mapboxgl-ctrl {
+    position: relative;  /* Needed for absolute positioning of results */
+    z-index: 1100;  /* Higher than other elements */
+}
+
+#location-list-container {
+    /* padding-left: 10px;
+    padding-right: 10px; */
+    max-height: 400px; /* Adjust height as needed */
+    overflow-y: auto;  /* Enables scrolling */
+    border-radius: 10px;
+}
+
+#location-list-container::-webkit-scrollbar {
+    width: 3px; /* Thin scrollbar */
+}
+
+#disclaimer-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(58, 110, 165, 0.3); /* Dark transparent background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1100; /* Ensures it stays on top */
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+    overflow-y: auto;
+}
+
+/* You can remove or adjust this if you prefer Bootstrap's grid control */
+
+#disclaimer-overlay .card {
+    max-width: 75%;
+    margin: 0 auto;
+}
+
+.call, .mail {
+    width: 50px;
+    height: 50px;
+    padding-right: 1.0rem !important;
+}
+
+.logo {
+    width: 150px;
+    height: 150px;
+}
+
+/* For small screens (max-width: 767.98px) */
+@media (max-width: 767.98px) {
+    #disclaimer-overlay .card-title {
+        font-size: 1.3rem !important; /* Smaller on small screens */
+    }
+
+    #disclaimer-overlay .lead {
+        font-size: 0.9rem !important; /* Smaller on small screens */
+    }
+
+    #disclaimer-overlay .btn {
+        font-size: 0.9rem !important; /* Smaller on small screens */
+    }
+
+    #welcome .welcome-par {
+        font-size: 1.2rem !important; /* Smaller on small screens */
+    }
+
+    #Contact .contact-name {
+        font-size: 1.3rem !important; /* Smaller on small screens */
+    }
+
+    #Contact .contact-title {
+        font-size: 1.0rem !important; /* Smaller on small screens */
+    }
+
+    .mail, .call {
+        width: 40px;
+        height: 40px;
+        padding-right: 1.0rem !important;
+    }
+
+    .logo {
+        width: 120px;
+        height: 120px;
+    }
+
+
+    
+    #map {
+        position: absolute;
+        top: 100px; /* Distance from the top */
+        bottom: 0;
+        width: 100%;
+    }
+}
+
+/* For extra small screens (max-width: 575.98px) */
+@media (max-width: 575.98px) {
+    #disclaimer-overlay .card-title {
+        font-size: 1.1rem !important;  /* Even smaller on extra small screens */
+    }
+
+    #disclaimer-overlay .lead {
+        font-size: 0.8rem !important; /* Even smaller on extra small screens */
+    }
+
+    #disclaimer-overlay .btn {
+        font-size: 0.85rem !important; /* Even smaller on extra small screens */
+    }
+
+    #welcome .welcome-par {
+        font-size: 1.1rem !important; /* Smaller on small screens */
+    }
+
+    #Contact .contact-name {
+        font-size: 1.1rem !important; /* Smaller on small screens */
+    }
+
+    #Contact .contact-title {
+        font-size: 0.9rem !important; /* Smaller on small screens */
+    }
+
+    .call, .mail {
+        width: 50px;
+        height: 50px;
+        padding-right: 1.0rem !important;
+    }
+
+    .logo {
+        width: 100px;
+        height: 100px;
+    }
+
+
+    #map {
+        position: absolute;
+        top: 100px; /* Distance from the top */
+        bottom: 0;
+        width: 100%;
+    }
+    /* #disclaimer-overlay .card {
+        max-width: 50%;
+    } */
+}
+
+@media (max-width: 475px) {
+
+    .logo {
+        width: 80px;
+        height: 80px;
+    }
+
+    #map {
+        position: absolute;
+        top: 160px;
+        bottom: 0;
+        width: 100%;
+    }
+
+}
+
+#disclaimer-overlay.hidden {
+    opacity: 0;
+    pointer-events: none; /* Prevents interaction when hidden */
+}
+
+.tippy-box {
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Example shadow */
+    /* Add any other Tippy box styles you have */
+}
+
+.legend-button {
+    position: absolute;
+    bottom: 20px; /* Distance from bottom */
+    right: 5px; /* Distance from right */
+    z-index: 1000; /* Ensure it's above the map */
+    /* width: 75px;
+    height: 75px; */
+    background-color: transparent;
+    border-color: transparent;
+}
+
+/* Popover container */
+/* Popover title */
+.legend-title {
+    color: #e65100;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+/* Legend items */
+.legend-item {
+    display: flex;
+    align-items: center;
+    font-size: 10px;
+    color: #1e3a8a;
+    margin-bottom: 6px;
+}
+
+/* Legend circles (Flood Levels) */
+.legend-circle {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 8px;
+}
+
+/* Legend icons (Locations) */
+.legend-icon {
+ 
+    display: inline-block;
+    margin-right: 8px;
+}
+
+.tippy-box[data-theme~='legend'] {
+    background-color: white;
+    border-radius: 2rem;
+    padding: 15px
+}
+
+.tippy-box[data-theme~='tooltips'] {
+    background-color: white;
+    color: #E25B00;
+  }
+
+  .tippy-box[data-theme~='tooltips'] > .tippy-arrow::before {
+    transform: scale(0);
+  }
+
+.tippy-box[data-theme~='legend'] > .tippy-arrow::before {
+    transform: scale(0);
+  }
+
+/* Ensure the specific nav-link can contain the absolutely positioned pseudo-element */
+.navbar-nav .nav-link.underline-image {
+    position: relative; /* Needed for positioning the ::after */
+  }
+
+/* Style the pseudo-element for the underline image */
+.navbar-nav .nav-link.underline-image::after {
+    content: '';
+    display: block;
+
+    /* --- Image Settings --- */
+    background-image: url('../path.svg'); /* ! tärkeää: CHANGE THIS PATH */
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    background-size: contain; /* Or specify dimensions */
+    height: 10px;          /* ! tärkeää: Adjust based on your image */
+    /* --- End Image Settings --- */
+
+
+    /* --- Positioning --- */
+    position: absolute;
+    left: 0;
+    right: 0;       /* Spans the width */
+    bottom: -5px;   /* ! tärkeää: Adjust this negative value to position below text */
+                    /* Consider Bootstrap's default padding */
+    /* --- End Positioning --- */
+
+    /* Optional: Prevent image from interfering with clicks */
+    pointer-events: none;
+}
+
+
+.nav-link {
+    /*
+        All of the base styles have
+        moved to the “CSS” tab above.
+    */
+    color: black;
+    transition: 0.5s;
+}
+
+/* Style when hovering over the links */
+.nav-link:hover {
+    color: #004E98;
+    transform: translateY(-3px);
+
+    
+}
+
+
+.main-nav-link:hover {
+    background: url('../path.svg');
+    background-repeat: no-repeat;
+    background-position: bottom center; /* Example: SVG at top */
+    background-size: contain; /* Or specify dimensions */
+    
+    animation: line 1s;
+}
+
+/* Style the pseudo-element for the underline image */
+.navbar-nav .nav-link.underline-image::after {
+    content: '';
+    display: block;
+
+    /* --- Image Settings --- */
+    background-image: url('../path.svg'); /* ! tärkeää: CHANGE THIS PATH */
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    background-size: contain; /* Or specify dimensions */
+    height: 10px;          /* ! tärkeää: Adjust based on your image */
+    /* --- End Image Settings --- */
+
+
+    /* --- Positioning --- */
+    position: absolute;
+    left: 0;
+    right: 0;       /* Spans the width */
+    bottom: -5px;   /* ! tärkeää: Adjust this negative value to position below text */
+                    /* Consider Bootstrap's default padding */
+    /* --- End Positioning --- */
+
+    /* Optional: Prevent image from interfering with clicks */
+    pointer-events: none;
+}
+
+
+@keyframes line {
+    0% {
+        background-position-x: 390px;
+    }
+}
+
+
+.table-rounded {
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: #fbfdff !important; /* Light blue or any hex/RGB color */
+  }
+  
+
+
+  /* 1) Make all cells transparent by default */
+.table td {
+    background-color: transparent ;
+    color: #092b5e;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    
+}
+
+.table th {
+    background-color: transparent !important;
+    /* border-radius: 10px; */
+    color:#092b5e
+}
+
+
+
+.table thead {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    background-color: #3A6EA5;
+}
+
+.table-crit {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    background-color: #ECF3F9 !important;
+    color: #3A6EA5 !important;
+}
+
+.table thead tr:first-child th:first-child {
+    border-top-left-radius: 0.75rem;
+    border-bottom-left-radius: 0.75rem;
+  }
+.table thead tr:first-child th:last-child {
+border-top-right-radius: 0.75rem;
+border-bottom-right-radius: 0.75rem;
+}
+  

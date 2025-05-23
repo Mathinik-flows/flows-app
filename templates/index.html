@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FLOWS</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/styles.v=1.3.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <header>
+        <nav class="navbar navbar-expand-lg sticky-top bg-white">
+            <div class="container px-5 py-1">
+                <a class="navbar-brand" href="/index">
+                    <img src="../static/logo.png" alt="Flows Logo" width="50" height="45">
+                </a>
+                <button class="navbar-toggler border-0 ms-auto" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
+                    aria-label="Toggle navigation" href="/">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+        
+                <div class="collapse navbar-collapse fw-semibold justify-content-end" id="navbarNavDropdown">
+                    <ul class="navbar-nav ms-auto align-items-lg-center align-items-end">
+                        <li class="nav-item ">
+                            <a class="nav-link fs-6 mx-2 fw-semibold underline-image main-nav-link" href="/floodmap">Flood Extent Map</a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link fs-6 fw-semibold mx-2 " href="/report">Reports</a>
+                        </li> 
+                        <li class="nav-item ">
+                            <a class="nav-link fs-6 fw-semibold mx-2 " href="/about">About</a>
+                        </li>  
+                        <li class="nav-item ">
+                            <a class="btn btn-darkBlue rounded-pill fw-semibold m-2 px-4 fs-6" href="https://drive.google.com/file/d/1QaqgTMnCULeN42uzdxNoRuxhj_3yaH96/view?usp=sharing" target="_blank">Read the Paper</a>
+                        </li>                    
+                    </ul>
+                </div>
+            </div>
+        </nav>    
+    </header>
+
+    <main>
+        <div class="content-wrapper ">
+            <!-- Welcome -->
+                <section id="welcome" class="text-white py-4 d-flex align-items-center">
+                    <div class="container text-dark p-5">
+                        <h1 class="welcome-title display-2 fw-bold text-center"  data-aos="fade-up" data-aos-duration="3000" data-aos-once="true" data-aos-anchor-placement="bottom-bottom">Welcome to <img src="../static/logo_full.png" alt="Flows" style=" height: 1em; vertical-align: top; margin-top: 7.5px;"></h1>
+                        <h5 class="welcome-par my-4 lh-sm fw-semibold fs-3 text-center mx-md-4 px-3 " data-aos="fade-up" data-aos-duration="2500" data-aos-once="true" data-aos-anchor-placement="center-bottom">
+
+                            A web application developed as part of a research initiative to harness the power of machine learning for fluvial flood prediction in the Municipality of Camaligan. Our mission is to support communities by providing accurate, timely, and accessible flood forecasts to help reduce risk and enhance preparedness.
+                            <br><br>
+                            Use the Flood Extent Map to explore predicted flood levels and stay informed through our integrated early warning system.</h5>
+                        <a href="/floodmap"><button type="button" class="btn btn-darkBlue btn-lg rounded-pill fw-semibold m-2 px-5 py-3 fs-5 shadow flood-link" data-aos="fade-up" data-aos-duration="2700" data-aos-once="true" data-aos-anchor-placement="bottom-bottom">Open the Map   <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-up-right-circle ms-2" viewBox="0 0 16 16" >
+                            <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.854 10.803a.5.5 0 1 1-.708-.707L9.243 6H6.475a.5.5 0 1 1 0-1h3.975a.5.5 0 0 1 .5.5v3.975a.5.5 0 1 1-1 0V6.707z"/>
+                          </svg></button></a> 
+                    </div>
+                </section>
+            </div>
+    </main>
+    
+    
+    <!-- Footer -->
+    <footer class="content-footer footer bg-darkBlue">
+        <section id="contactinfo">
+            <div class="container px-5 mt-2">
+                <div class="row gx-5 gy-3 py-4 align-items-center">
+                    <div class="col-xl-7 col-lg-6 col-md-6">
+                        <div class="row gy-2">
+                            <div class="col-12 col-xl-7">
+                                <img src="../static/logo_full.svg" alt="Logo">
+                            </div>
+                            <div class="col-12 col-xl-5">
+                                
+                                <h6 class="fw-semibold lh-sm text-white fs-6 mt-2">In Partnership with</h6>
+                                <div class="d-flex flex-row mt-2 gap-2">
+                                    <img src="../static/logo_cbsua.png" alt="Bagong_Pilipinas_Logo"
+                                        width="50px" height="50px">
+                                    <img src="../static/logo_pagasa.svg"
+                                            alt="GPPB_Logo" width="50px" height="50px"></a>
+                                    <img src="../static/logo_cadressmo.png"
+                                        alt="Philippine_Transparency_Seal" width="50px" height="50px">
+                                </div>
+                                
+                            </div>
+                        </div>
+                        
+                       
+                    </div>
+                    
+                    <div class="col-xl-5 col-lg-6 col-md-12">
+                        <audio id="myMusic" src="../static/The_Flood.mp3" preload="auto">
+                            Your browser does not support the audio element.
+                        </audio>
+                    
+                        <button type="button" id="musicToggle" class="btn btn-darkBlue text-whitefw-semibold lh-sm text-white fs-4 m-0 p-0" aria-pressed="false">
+                            Disclaimer
+                        </button>
+                        <!-- //<h6 class="fw-semibold lh-sm text-white fs-4 m-0">Disclaimer</h6> -->
+                        <h6 class="fw-normal pt-1 text-white fs-6 lh-sm">
+                            FLOWS is an initial release from a research study and only provides predictions based on the methods described in the paper. The developers and researchers are not responsible for any damages or losses that may occur from using this website or its features.
+                        </h6>
+                        
+                        
+                    </div>
+    
+                </div>
+            </div>
+        </section>
+    </footer>
+  
+  
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <script>
+        AOS.init();
+
+        // Wait for the HTML document to be fully loaded
+        document.addEventListener('DOMContentLoaded', (event) => {
+
+        // Get references to the audio element and the button
+        const music = document.getElementById('myMusic');
+        const toggleButton = document.getElementById('musicToggle');
+
+        // Check if the elements were found
+        if (!music || !toggleButton) {
+            console.error("Couldn't find the audio element or the toggle button.");
+            return; // Stop execution if elements aren't found
+        }
+
+        // Add an event listener to the button for the 'click' event
+        toggleButton.addEventListener('click', function() {
+            // Check if the music is currently paused or has not started
+            if (music.paused) {
+                // If paused, play the music
+                music.play()
+                    .then(() => {
+                        // Update button text and ARIA state if playback starts successfully
+                        toggleButton.setAttribute('aria-pressed', 'true');
+                    })
+                    .catch(error => {
+                        // Handle potential errors like browser restrictions
+                        console.error("Error playing audio:", error);
+                        // Optionally, inform the user
+                        // alert("Could not play audio. Please interact with the page first.");
+                    });
+            } else {
+                // If playing, pause the music
+                music.pause();
+                // Update button text and ARIA state
+                // toggleButton.textContent = 'Play Music';
+                toggleButton.setAttribute('aria-pressed', 'false');
+            }
+        });
+
+        // (Optional) Update button text if music ends naturally
+        music.addEventListener('ended', function() {
+            // toggleButton.textContent = 'Play Music';
+            toggleButton.setAttribute('aria-pressed', 'false');
+            // Optional: reset playback position to the beginning if you don't have loop
+            // music.currentTime = 0;
+        });
+
+        // (Optional) Handle potential loading errors
+        music.addEventListener('error', function(e) {
+            console.error("Error loading audio file:", music.error);
+            // toggleButton.textContent = 'Audio Error';
+            // toggleButton.disabled = true; // Disable button if audio fails to load
+        });
+
+        }); // End of DOMContentLoaded listener
+    </script>
+</body>
+</html>

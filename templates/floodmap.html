@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FLOWS</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/css/styles.v=1.3.css">
+    
+    
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.10.0/mapbox-gl.css" rel="stylesheet">
+    <link href="https://unpkg.com/tippy.js/themes/light.css" rel="stylesheet"/>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.10.0/mapbox-gl.js"></script>
+    
+
+    
+    
+</head>
+<body>
+    <!--plugins-->
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.3/mapbox-gl-geocoder.min.js"></script>
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.3/mapbox-gl-geocoder.css" type="text/css">
+    
+    <!-- Navbar -->
+    <header>
+        <nav class="navbar navbar-expand-lg sticky-top bg-white">
+            <div class="container px-5 py-1">
+                <a class="navbar-brand" href="/index">
+                    <img src="../static/logo.png" alt="Flows Logo" width="50" height="45">
+                </a>
+                <button class="navbar-toggler border-0 ms-auto" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
+                    aria-label="Toggle navigation" href="/">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+        
+                <div class="collapse navbar-collapse fw-semibold justify-content-end" id="navbarNavDropdown">
+                    <ul class="navbar-nav ms-auto align-items-lg-center align-items-end">
+                        <li class="nav-item ">
+                            <a class="nav-link fs-6 mx-2 fw-semibold underline-image main-nav-link" href="/floodmap">Flood Extent Map</a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link fs-6 fw-semibold mx-2 " href="/report">Reports</a>
+                        </li> 
+                        <li class="nav-item ">
+                            <a class="nav-link fs-6 fw-semibold mx-2 " href="/about">About</a>
+                        </li>  
+                        <li class="nav-item ">
+                            <a class="btn btn-darkBlue rounded-pill fw-semibold m-2 px-4 fs-6" href="https://drive.google.com/file/d/1QaqgTMnCULeN42uzdxNoRuxhj_3yaH96/view?usp=sharing" target="_blank">Read the Paper</a>
+                        </li>                    
+                    </ul>
+                </div>
+            </div>
+        </nav>    
+    </header>
+
+    <header class="d-md-none">
+        <nav class="navbar navbar-expand-lg sticky-top bg-white">
+            <div class="container px-3 py-1">
+                <a class="navbar-brand" href="/index">
+                    <img src="../static/logo.png" alt="Flows Logo" width="50" height="45">
+                </a>
+                <div class="dropdown">
+                    <button class="btn btn-dropdown text-start fw-semibold d-flex justify-content-between align-items-center rounded-5 dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="width: 100%;">
+                        Select prediction shown
+                    </button>
+                    <ul class="dropdown-menu tileset-dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: 100%;">
+                    
+                    </ul>
+                </div>
+                <div class="navbar-nav ms-auto align-items-lg-center align-items-end">
+                        <button class="nav-link fs-6 mx-2 fw-semibold text-black underline-image" data-bs-toggle="modal" data-bs-target="#MonitoredLocations">Monitored Locations</button>
+                        <button class="nav-link fs-6 fw-semibold mx-2 text-black" data-bs-toggle="modal" data-bs-target="#NearbyLocations">Nearby Facilities</button>
+                </div>
+                
+            </div>
+        </nav>    
+    </header>
+
+    <div class="modal fade" id="MonitoredLocations" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 10000 !important;">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Monitored Locations</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                
+                    <p class=" text-dark lh-sm fs-6 mb-2">Add locations within Camaligan to see the predicted flood level for this specific date and time. Press 'x' to remove the location.</p>
+                    <div id="search-container"></div>
+                    <div id="location-list-container">
+                        <div class="monitored-list" id="monitored-list">
+                        </div>
+                    </div>
+                
+                </div>
+    
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="NearbyLocations" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 10000 !important;">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Nearby Critical Facilities</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            
+                <p class="card-subtitle text-dark lh-sm fs-6 mb-2">These are essential public structures such as hospitals, schools, evacuation centers, or government offices near your selected location.</p>
+                <div id="location-list-container">
+                    <div class="location-list" id="location-list">
+                    </div>
+                </div>
+            
+            </div>
+            
+            </div>
+        </div>
+    </div>
+
+
+    
+       
+    <!--Map-->    
+    <section id="map">
+        <div id="disclaimer-overlay">
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-9 col-lg-6">
+                    <div class="card rounded-5 p-4 px-md-5" data-aos="fade-up" data-aos-duration="2000" data-aos-once="true" data-aos-anchor-placement="center-bottom">
+                        <div class="card-body text-center">
+                            <h2 class=" fw-semibold text-darkOrange m-0" >Before you proceed...</h2>
+                            <h6 class="lead text-darkBlue fs-6 lh-sm mt-3">Please note that this system is still in its early stages and is based on historical data and flood simulations. While it aims to provide helpful information, it should not be your only source for making important safety decisions. Always stay alert and follow official updates from your local authorities. The developers and researchers are not responsible for any damages or losses that may occur from using this website or its features.
+                            <br><br>
+                            This project is limited to the <span class="fw-semibold">Municipality of Camaligan, Camarines Sur ONLY</span>
+                  
+                            </h6>
+                            <button id="accept-disclaimer" class="btn btn-darkBlue rounded-pill fw-semibold px-4 fs-5 mt-3" href="#">I understand.</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <div id="map"></div>
+        <div class="overlay mt-2 d-none d-md-block">
+            <div class="sub-overlay">
+                <div class="card bg-lightBlue rounded-5 shadow border-0 p-2">
+                    <div class="card-body">
+                        <div class="overlay-header">
+                            <h6 class="fw-bold text-white ">Showing prediction for:</h6>
+                        </div>
+                        <div class="overlay-content">
+                            <div class="dropdown">
+                                <button class="btn btn-dropdown text-start fw-semibold d-flex justify-content-between align-items-center rounded-5 dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="width: 100%;">
+                                    Select prediction shown
+                                </button>
+                                <ul class="dropdown-menu tileset-dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: 100%;">
+                                    
+                                </ul>
+                            </div>
+                            <p class="class-subtitle text-white lh-sm fs-6 fst-italic mt-1 mb-0" id="update"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="sub-overlay mt-2" style="z-index: 13;">	
+                <div class="card bg-lightBlue border-0 rounded-5 shadow p-2">
+                    <div class="card-body">
+                        <div class="overlay-header mb-0">
+                            <h6 class="fw-bold text-white m-0">Monitored Locations</h6>
+                            <button class="btn toggle" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMonitoredLocations" aria-expanded="true" aria-controls="collapseExample">
+                                <img id="toggle-icon" src="../static/arrow-down.svg" alt="Remove" width="20" height="20">
+                            </button>
+                        </div>
+                        <div class="overlay-content">
+                            <div class="collapse show mt-2" id="collapseMonitoredLocations">
+                                <p class="card-subtitle text-white lh-sm fs-6 mb-2">Add <span id="monitored">monitored locations</span> within Camaligan to see the predicted flood level for this specific date and time. Press 'x' to remove the location.</p>
+                                <div id="search-container2"></div>
+                                <div id="location-list-container">
+                                    <div class="monitored-list" id="monitored-list">
+                                        <div class="card mb-2 rounded-4 card-empty mt-3">
+                                            <div class="card-body d-flex align-items-center p-3 ">
+                                                <div>
+                                                    <h6 class="fw-bold text-darkBlue text-white">Nothing to show here yet...</h6>
+                                                    <p class="card-subtitle text-white fw-medium fs-6 fst-italic lh-1">Please add a monitored location to see a flood alert level.</p>
+                                                </div>
+                                            </div>
+                                        </div>  
+                                    </div>
+                                </div>                              
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="sub-overlay mt-2" style="z-index: 10;">
+                <div class="card bg-lightBlue border-0 rounded-5 shadow p-2">
+                    <div class="card-body">
+                        <div class="overlay-header mb-0">
+                            <h6 class="fw-bold text-white m-0">Nearby Critical Facilities</h6>
+                            <button class="btn toggle" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNearbyLocations" aria-expanded="true" aria-controls="collapseExample">
+                                <img id="toggle-icon" src="../static/arrow-down.svg" alt="Remove" width="20" height="20">
+                            </button>
+                        </div>
+                        <div class="overlay-content">
+                            <div class="collapse show mt-2" id="collapseNearbyLocations">
+                                <p class="card-subtitle text-white lh-sm fs-6 mb-2">These are essential public structures such as hospitals, schools, evacuation centers, or government offices near your selected location.</p>
+                                <div id="location-list-container">
+                                    <div class="location-list" id="location-list">
+                                        <div class="card mb-2 rounded-4 card-empty mt-1">
+                                            <div class="card-body d-flex align-items-center p-3 ">
+                                                <div>
+                                                    <h6 class="fw-bold text-darkBlue text-white">Nothing nearby to show yet...</h6>
+                                                    <p class="card-subtitle text-white fw-medium fs-6 fst-italic lh-1">Please add/select a monitored location to see nearby facilities</p>
+                                                </div>
+                                            </div>
+                                        </div>  
+                                    </div>
+                                </div>
+                            </div>    
+                        </div>                  
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="toast-container" class="position-fixed top-0 end-0 p-3" style="margin-top: 90px; z-index: 1100;"></div>
+
+
+        
+        <!-- Legend Button -->
+        <button id="myButton" class="legend-button">
+            <img id="toggle-icon" src="../static/question.svg" alt="Remove" width="50" height="50">
+        </button>
+        <div id="template" class="shadow-lg" style="display: none; ">
+            <div>
+                <h6 class="legend-title mb-2 fs-6">Legend</h6>
+                <div class="legend-item">
+                    <span class="legend-circle" style="background-color: #f4b400;"></span> <span class="fw-semibold">Low Flood Level&nbsp; </span> 0.1-0.24m
+                </div>
+                <div class="legend-item">
+                    <span class="legend-circle" style="background-color: #fb8c00;"></span> <span class="fw-semibold">Moderate Flood Level&nbsp; </span></span> 0.25-0.5m
+                </div>
+                <div class="legend-item">
+                    <span class="legend-circle" style="background-color: #d50000;"></span> <span class="fw-semibold">High Flood Level&nbsp; </span> >0.5m
+                </div>
+                <div class="legend-item">
+                    <span class="legend-icon"><img src="../static/pinpoint.svg" alt="pinpoint" width="15" height="15"></span>Monitored Location(s)
+                </div>
+                <div class="legend-item">
+                    <span class="legend-icon"><img src="../static/pinpoint_selected.svg" alt="pinpoint_selected" width="15" height="15"></span>Selected Location
+                </div>
+                <div class="legend-item">
+                    <p class="fst-italic m-0 lh-sm"><small>Flood level legends are based on <a href="https://www.facebook.com/MMDAPH/posts/know-when-it-is-safe-to-drive-through-flooded-areas-with-the-mmda-flood-gauge-th/4397217110316917/" target="_blank">MMDA's Flood Gauge</a></small></p>
+                </div>
+                
+            </div>
+        </div>
+
+    </section>
+            
+
+ 
+    
+    
+    <!-- Scripts -->
+
+    <!-- Development -->
+    <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js"></script>
+    <script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/geotiff"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.7.6/proj4.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/geotiff"></script>
+    
+    
+
+    <!-- Production -->
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/tippy.js@6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    
+    <script>
+    // TO MAKE THE MAP APPEAR YOU MUST
+	// ADD YOUR ACCESS TOsKEN FROM
+	// https://account.mapbox.com
+
+    //BOOTSTRAP
+    
+    AOS.init();
+
+    
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const overlay = document.getElementById("disclaimer-overlay");
+        const acceptButton = document.getElementById("accept-disclaimer");
+
+        // Check if the disclaimer has been accepted before (use localStorage)
+        if (localStorage.getItem("disclaimerAccepted")) {
+            overlay.style.display = "none";
+        }
+
+        acceptButton.addEventListener("click", function () {
+            overlay.classList.add("hidden"); // Add fade-out effect
+            setTimeout(() => {
+                overlay.style.display = "none"; // Hide completely after animation
+            }, 300); // Matches the transition time in CSS
+            localStorage.setItem("disclaimerAccepted", "true"); // Save acceptance
+        });
+    });
+
+
+    document.querySelectorAll(".dropdown-item").forEach(item => {
+        item.addEventListener("click", function() {
+            document.getElementById("dropdownMenuButton").textContent = this.textContent;
+        });
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        var popoverTrigger = new bootstrap.Popover(document.getElementById("legend-toggle"), {
+            container: "body", // Ensures the popover does not get clipped
+        });
+    });
+
+    //TIPPY
+
+
+    tippy('#myButton', {
+        theme: 'legend',
+        content: document.getElementById('template').innerHTML,
+        allowHTML: true,
+        trigger: "click",
+        hideOnClick: 'toggle',
+        placement: 'top-end',
+        offset: [-10, 0],
+        interactive: true,
+        showOnCreate: false,
+        zIndex: 1100,
+        // content: 'My tooltip!',
+    });
+
+    tippy('#monitored', {
+        theme: 'tooltips',
+        content: 'These are locations you would llike to see the flood levels for.',
+      });
+
+
+
+    //MAPBOX
+
+    const ACCESS_TOKEN = 'pk.eyJ1IjoiZ2F2aW5jaWlpIiwiYSI6ImNtOXJuYTFldTF0OXAybHB4eTg2bnFiNDIifQ.qfCkZkEpDTtdhTkHcUQ0Cg';
+	mapboxgl.accessToken = ACCESS_TOKEN;
+    const username = 'gavinciii'; // Replace with your Mapbox username
+    
+    navigator.geolocation.getCurrentPosition(successLocation, errorLocation, { enableHighAccuracy: true });
+    const datasetId = 'cm89a2b3m4ab51mpd8gm1v4u9'; // Replace with your actual dataset ID
+    const accessToken = ACCESS_TOKEN; // Replace with your access token
+    layerIndex = 0;
+    
+
+    function successLocation(position) {
+        // console.log(position);
+        setupMap([position.coords.longitude, position.coords.latitude]);
+    }
+
+    function errorLocation() {
+        setupMap([123.160705, 13.623460]);
+    }
+
+    function setupMap(center) {
+        const map = new mapboxgl.Map({
+            container: 'map', // container ID
+            style: 'mapbox://styles/gavinciii/cm9ro1smy008b01spb1yydza4', // style URL
+            //style: 'mapbox://styles/mapbox/satellite-streets-v12',
+            center: [123.160705, 13.623460], // starting position [lng, lat]. Note that lat must be set between -90 and 90
+            zoom: 15.5, // starting zoom
+            pitch: 45
+        });
+        const totalTilesets = 6; // 0 through 11
+
+        map.on('load', () => {
+            console.log("Map loaded.");
+
+            for (let i = 0; i < totalTilesets; i++) {
+                const tilesetId = `flood-map-${i}`;
+                const sourceId = `source_${tilesetId}`;
+                const layerId = `layer_${tilesetId}`;
+
+                // Safety check: Don't re-add if already exists (useful for hot-reloading dev envs)
+                if (!map.getSource(sourceId)) {
+                    map.addSource(sourceId, {
+                        type: 'raster',
+                        url: `mapbox://${username}.${tilesetId}`,
+                        tileSize: 256
+                    });
+                    console.log(`AddedSource: ${sourceId}`);
+                }
+
+                if (!map.getLayer(layerId)) {
+                    map.addLayer({
+                        id: layerId,
+                        type: 'raster',
+                        source: sourceId,
+                        paint: {
+                            'raster-opacity': 0.7
+                        },
+                        layout: {
+                            'visibility': (i === 0) ? 'visible' : 'none' // Only layer 0 visible initially
+                        },
+                        slot: 'middle'
+                    },
+                    );
+                    console.log(`AddedSource: ${layerId}`);
+                }
+            }
+            console.log("Initial layers added or confirmed.");
+            loadTop5FromCSV(0); 
+
+            // --- NEW Event listener setup for MULTIPLE Bootstrap Dropdowns ---
+            const dropdownMenus = document.querySelectorAll('.tileset-dropdown-menu'); // Select ALL menus by common class
+
+            if (dropdownMenus.length > 0) {
+                dropdownMenus.forEach(menu => { // Attach listener to each menu found
+                    menu.addEventListener('click', (event) => {
+                        // Check if the clicked element is a dropdown item with the data attribute
+                        if (event.target.matches('.dropdown-item[data-tileset-index]')) {
+                            event.preventDefault(); // Prevent default anchor link behavior
+
+                            const selectedIndex = parseInt(event.target.dataset.tilesetIndex, 10);
+                            const selectedText = event.target.textContent;
+                            layerIndex = selectedIndex;
+
+                            console.log(`Dropdown item clicked. Selected index: ${selectedIndex}`);
+
+                            // Find the button associated *specifically* with the clicked menu
+                            const parentDropdown = event.target.closest('.dropdown'); // Find the parent .dropdown container
+                            if (parentDropdown) {
+                                const button = parentDropdown.querySelector('.dropdown-toggle'); // Find the button within that container
+                                if (button) {
+                                    button.textContent = selectedText; // Update the correct button's text
+                                }
+                            }
+
+
+                            // --- Map Layer Visibility Logic (Stays the Same) ---
+                            // This part affects the single map globally based on the index
+                            for (let i = 0; i < totalTilesets; i++) {
+                                const layerId = `layer_flood-map-${i}`;
+                                if (map.getLayer(layerId)) {
+                                    const visibility = (i === selectedIndex) ? 'visible' : 'none';
+                                    map.setLayoutProperty(layerId, 'visibility', visibility);
+                                } else {
+                                    console.warn(`Layer ${layerId} not found on map during visibility toggle.`);
+                                }
+                            }
+                            // --- End Map Layer Logic ---
+
+                            refreshMonitoredLocations(selectedIndex, map);
+                            loadTop5FromCSV(selectedIndex); 
+
+                        }
+                    });
+                });
+                console.log(`Bootstrap dropdown event listeners added to ${dropdownMenus.length} menus.`);
+
+                // Set initial button text for ALL dropdowns based on default layer (layer 0)
+                dropdownMenus.forEach(menu => {
+                    const initialItem = menu.querySelector('[data-tileset-index="0"]');
+                    const parentDropdown = menu.closest('.dropdown');
+                    if (initialItem && parentDropdown) {
+                        const button = parentDropdown.querySelector('.dropdown-toggle');
+                        if (button) {
+                            button.textContent = initialItem.textContent;
+                        }
+                    }
+                });
+
+            } else {
+                console.error("Could not find any dropdown menu elements with class 'tileset-dropdown-menu'.");
+            }
+        });
+
+        map.addControl(new mapboxgl.NavigationControl(), 'top-right');
+        // map.addControl(new mapboxgl.GeolocateControl({
+        //     positionOptions: { enableHighAccuracy: true },
+        //     trackUserLocation: true
+        // }), 'top-right');
+
+        fetch('./static/datasets/Camaligan-Crit-Facilities.geojson') // Load the downloaded GeoJSON file
+        .then(response => response.json())
+        .then(geojsonData => {
+            
+            // Define localGeocoder function for searching within the dataset
+            function localGeocoder(query) {
+                // console.log("Geocoder Search Query:", query); // Debug search query
+
+                const results = geojsonData.features
+                    .filter(feature => 
+                        feature.properties && 
+                        feature.properties.name &&
+                        feature.properties.name.toLowerCase().includes(query.toLowerCase())
+                    )
+                    .map(feature => ({
+                        text: feature.properties.name, // Display name in search results
+                        place_name: feature.properties.name,
+                        center: feature.geometry.coordinates, // Coordinates for result
+                        geometry: feature.geometry,
+                    }));
+
+                // console.log("Filtered Results:", results); // Debug filtered results
+                return results;
+            }
+
+            
+
+            // Initialize MapboxGeocoder with local dataset search
+            const geocoder = new MapboxGeocoder({
+                accessToken: mapboxgl.accessToken,
+                localGeocoder: localGeocoder,
+                zoom: 15,
+                mapboxgl: mapboxgl,
+                placeholder: 'Search for a location',
+                container: document.getElementById('search-container')
+            });
+
+                // Function to add the geocoder to a specified container
+            function addGeocoderToContainer(containerId) {
+                const container = document.getElementById(containerId);
+                container.appendChild(geocoder.onAdd(map));
+            }
+
+            // Function to update the visibility of the geocoder containers based on the window size
+            function updateGeocoderVisibility() {
+                const container1 = document.getElementById('search-container');
+                const container2 = document.getElementById('search-container2');
+
+                if (window.innerWidth <= 767) {
+                    document.getElementById("search-container").innerHTML = "";
+                    document.getElementById("search-container2").innerHTML = "";
+                    addGeocoderToContainer('search-container'); // Add geocoder to the first container
+                } else {
+                   
+                    document.getElementById("search-container").innerHTML = "";
+                    document.getElementById("search-container2").innerHTML = "";
+                    addGeocoderToContainer('search-container2'); // Add geocoder to the second container
+                }
+            }
+
+            // Initial visibility check
+            updateGeocoderVisibility();
+
+            // Update where geocoder instance is applied when resizing the window!! Not necessarily needed to be handled sine the resize listener interferes with android keyboard.
+            //window.addEventListener('resize', updateGeocoderVisibility);
+
+            // document.getElementById('search-container').appendChild(geocoder.onAdd(map));
+            // document.getElementById('search-container2').appendChild(geocoder.onAdd(map));
+            
+
+            geocoder.on('result', async (event) => {
+            // When the geocoder returns a result
+            const point = event.result.center; // Capture the result 
+            const placeName = event.result.text;
+            const tileset = 'gavinciii.81ck42dr'; // replace this with the ID of the tileset you created
+            const radius = 1609; // 1609 meters is roughly equal to one mile
+            const limit = 10; // The maximum amount of results to return
+
+            const query = await fetch(
+                `https://api.mapbox.com/v4/${tileset}/tilequery/${point[0]},${point[1]}.json?radius=${radius}&limit=${limit}&access_token=${mapboxgl.accessToken}`,
+                { method: 'GET' }
+            );
+            const json = await query.json();
+            // console.log(json);
+           
+            addMonitored(map, placeName, point);  
+            updateNearby(json.features, map);   
+            });
+
+            
+                
+        })
+        .catch(error => console.error("Error loading GeoJSON:", error));
+
+    }
+
+    let selectedLocations = [];
+    let markers = [];
+
+    async function addMonitored(map, placeName, coordinates) {
+        if (selectedLocations.some(loc => loc.name === placeName)) return;
+
+        try {
+            //console.log("Fetching flood level for coordinates:", coordinates);
+            const result = await fetchBand1Value(coordinates[0], coordinates[1]);
+
+            // console.log("Flood Value:", result.value);
+            // console.log("Flood Level:", result.level);
+
+            // Push with the retrieved flood level
+            selectedLocations.push({
+                name: placeName,
+                coordinates: coordinates,
+                floodLevel: result.level,
+                floodValue: +result.value.toFixed(2)   // You can also include result.value if needed
+            });
+
+            // Add marker to the map
+            let marker = new mapboxgl.Marker({ color: "blue" })
+                .setLngLat(coordinates)
+                .addTo(map);
+
+            markers.push(marker); // Store marker for later removal
+            updateLocationList(map);
+
+
+        } catch (error) {
+            console.error("Error fetching flood level:", error);
+        }
+    }
+
+    async function fetchBand1Value(lng, lat) {
+        try {
+            const flaskServerUrl = 'http://127.0.0.1:5000';
+            const response = await fetch(`${flaskServerUrl}/api/get-band1`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+
+                body: JSON.stringify({ lng, lat, layerIndex })
+            });
+
+            if (!response.ok) {
+                throw new Error("API call failed with status " + response.status);
+            }
+
+            const data = await response.json();
+            // console.log("Received data from API:", data);
+
+            if (data.value !== undefined) {
+                // console.log("Band1 value:", data.value);
+                // console.log("Flood level:", data.flood_level);
+                return {
+                    value: data.value,
+                    level: data.flood_level,
+                    row: data.row,
+                    col: data.col
+                };
+            } else {
+                throw new Error("Invalid data structure: " + JSON.stringify(data));
+            }
+        } catch (err) {
+            console.error("Error in fetchBand1Value:", err);
+            throw err;  // Re-throw to be handled by the caller
+        }
+
+    }
+
+        /**
+     * Re-fetches flood levels for all currently monitored locations based on the provided layer index,
+     * updates the selectedLocations array, and refreshes the UI list.
+     * @param {number} layerIndex The new layer index (0-11) to fetch data for.
+     * @param {mapboxgl.Map} map The Mapbox map instance.
+     */
+    async function refreshMonitoredLocations(layerIndex, map) {
+        console.log(`Refreshing ${selectedLocations.length} selected locations for index ${layerIndex}...`);
+
+        if (selectedLocations.length === 0) {
+            console.log("No locations selected, nothing to refresh.");
+            // Ensure the list shows the "empty" message if needed
+            updateLocationList(map); // Call it even if empty to show the correct message
+            return;
+        }
+
+        // Set a temporary "Loading..." state in the UI if desired
+        // selectedLocations.forEach(loc => loc.floodLevel = "Updating...");
+        // updateLocationList(map); // Show "Updating..." immediately
+
+        const updatePromises = selectedLocations.map((location, index) => // Use map to preserve order if needed later
+            fetchBand1Value(location.coordinates[0], location.coordinates[1])
+                .then(result => {
+                    // --- Directly update the object in the selectedLocations array ---
+                    location.floodLevel = result.level;
+                    location.floodValue = +result.value.toFixed(2)   // Update value too if you store it
+                    console.log(`Refreshed ${location.name}: Level=${location.floodLevel}`);
+                    return { status: 'fulfilled', index: index }; // Indicate success
+                })
+                .catch(error => {
+                    console.error(`Failed to refresh ${location.name}: ${error.message}`);
+                    // --- Update the object to show an error state ---
+                    location.floodLevel = "Error";
+                    location.value = 0;
+                    return { status: 'rejected', index: index, reason: error.message }; // Indicate failure
+                })
+        );
+
+        // Wait for all fetches to complete or fail
+        await Promise.allSettled(updatePromises); // Use allSettled
+        console.log("Finished refreshing selected locations batch.");
+
+        // --- Now call your existing function to redraw the list ---
+        // updateLocationList will use the updated floodLevel values in the selectedLocations array
+        updateLocationList(map);
+    }
+
+    function updateLocationList(map) {
+        // Select all elements with the class "monitored-list"
+        const monitoredLists = document.querySelectorAll(".monitored-list");
+
+        if (selectedLocations.length === 0) {
+            const emptyCardHTML = `
+            <div class="card mb-2 rounded-4 card-empty mt-3">
+                <div class="card-body d-flex align-items-center p-3 ">
+                <div>
+                    <h6 class="fw-bold text-darkBlue text-white">Nothing to show here yet...</h6>
+                    <p class="card-subtitle text-white fw-medium fs-6 fst-italic lh-1">Please add a monitored location to see a flood alert level.</p>
+                </div>
+                </div>
+            </div>
+            `;
+
+            // Set the innerHTML of *each* monitored-list element to the empty message
+            monitoredLists.forEach(monitoredList => {
+                monitoredList.innerHTML = emptyCardHTML;
+            });
+            return; // Exit the function early
+        }
+
+        // Clear the inner HTML of each monitored list
+        monitoredLists.forEach(monitoredList => {
+            monitoredList.innerHTML = ""; // Clear existing content
+            window._mapRef = map;
+
+
+            selectedLocations.forEach((loc, index) => {
+                let textColor = loc.floodLevel === "High Flood Level" ? "red" :
+                                loc.floodLevel === "Moderate Flood Level" ? "orange" :
+                                loc.floodLevel === "Low Flood Level" ? "#F5C548" : "green";
+
+                let card = document.createElement("div");
+                card.className = "card my-2 rounded-4 monitored-location";
+                // Set the data-index attribute here
+                card.setAttribute("data-index", index);
+                card.innerHTML = `
+                    <div class="card-body d-flex justify-content-between align-items-center p-3">
+                        <div>
+                            <p class="fw-semibold lh-sm text-darkBlue m-0 text-truncate" style="max-width: 90%;">${loc.name}</p>
+                            <h4 class="fw-bold m-0" style="color:${textColor};">${loc.floodLevel}</h4>
+                            <h6 class="fw-normal fst-italic m-0" style="color:${textColor};">${loc.floodValue} meters</h6>
+                        </div>
+                        <button class="btn btn-sm remove-btn" onclick="removeLocation(${index}, window._mapRef)" style="--bs-btn-padding-y: 0rem; --bs-btn-padding-x: 0rem;">
+                            <img src="../static/remove.svg" alt="Remove" width="30" height="30">
+                        </button>
+                    </div>
+                `;
+                
+                // ✅ Add event listener directly here
+                card.addEventListener("click", (e) => {
+                    // Prevent the click from triggering when clicking the remove button
+                    if (e.target.closest('.remove-btn')) return;
+
+                    const currentIndex = parseInt(card.getAttribute("data-index"));
+                    const location = selectedLocations[currentIndex];
+                    if (location && location.coordinates) {
+                        // 🔹 Highlight only the selected card
+                        document.querySelectorAll(".monitored-location").forEach(card => {
+                            card.classList.remove("selected-location");
+                        });
+                        card.classList.add("selected-location");
+
+                        map.flyTo({
+                            center: location.coordinates,
+                            zoom: 18,
+                            essential: true
+                        });
+
+                        markers.forEach(marker => {
+                            marker.remove();
+
+                        });
+                        markers = selectedLocations.map((loc, i) => {
+                            const color = (i === currentIndex) ? '#FF6700' : 'blue'; // orange for selected
+                            return new mapboxgl.Marker({ color })
+                                .setLngLat(loc.coordinates)
+                                .addTo(map);
+                        });
+                    }
+                });
+
+                monitoredList.appendChild(card);
+            });
+        });
+
+    }
+
+    // Remove location from the list
+    function removeLocation(index, map) {
+        selectedLocations.splice(index, 1);
+        markers[index].remove();
+        markers.splice(index, 1); // Remove marker from array
+        updateLocationList(map);
+    }
+ 
+    let currentFacilityPopup = null;
+
+    function updateNearby(features, map) {
+        // Select all elements with the class "location-list"
+        const locationLists = document.querySelectorAll(".location-list");
+
+        // Define the HTML for the "Nothing nearby to show" message
+        const emptyNearbyHTML = `
+            <div class="card mb-2 rounded-4 card-empty mt-3">
+            <div class="card-body d-flex align-items-center p-3 ">
+                <div>
+                <h6 class="fw-bold text-darkBlue text-white">Nothing nearby to show yet...</h6>
+                <p class="card-subtitle text-white fw-medium fs-6 fst-italic lh-1">Please add/select a monitored location to see nearby facilities.</p>
+                </div>
+            </div>
+            </div>
+        `;
+
+        if (features.length === 0) {
+            // If there are no features, set the innerHTML of each location-list to the empty message
+            locationLists.forEach(locationList => {
+            locationList.innerHTML = emptyNearbyHTML;
+            });
+
+            if (currentFacilityPopup) {
+                currentFacilityPopup.remove();
+                currentFacilityPopup = null;
+            }
+            return; // Exit the function early
+        }
+  
+        // Clear previous entries and populate each location list
+        locationLists.forEach(locationList => {
+            locationList.innerHTML = ""; // Clear previous entries
+
+            features.forEach(feature => {
+                let coordinates = feature.geometry.coordinates; // Extract coordinates
+                let name = feature.properties.name || "Unknown Facility";
+                let distance = (feature.properties.tilequery.distance / 1000).toFixed(2); // Convert meters to km
+                let amenity = feature.properties.amenity || "default"; // Get the amenity type
+                
+                const iconMap = {
+                    "police_station": "../static/icons/GovernmentService.svg",
+                    "fire_station": "../static/icons/GovernmentService.svg",
+                    "school": "../static/icons/School.svg",
+                    "hospital": "../static/icons/Hospital.svg",
+                    "evacuation_center": "../static/icons/Evacuation.svg",
+                    "miscellaneous": "../static/icons/Misc.svg",
+                    "government": "../static/icons/Government.svg"
+                };
+                const iconPath = iconMap[amenity] || "../static/icons/Misc.svg";
+
+                // Create Bootstrap Card
+                let card = document.createElement("div");
+                card.className = "card mb-2 rounded-4 facility-card"; // Add Bootstrap card classes
+                card.innerHTML = `
+                    <div class="card-body d-flex align-items-center p-3">
+                        <div class="me-3">
+                            <img src="${iconPath}" alt="${amenity}" width="30" height="30">
+                        </div>
+                        <div>
+                            <h6 class="fw-bold text-darkBlue">${name}</h6>
+                            <p class="card-subtitle text-lightBlue fw-medium fs-6 fst-italic lh-sm">${distance} km away</p>
+                        </div>
+                    </div>
+                `;
+
+                // Add the click event listener to the card
+                card.addEventListener('click', async() => {
+                    
+                    
+                                
+                    map.flyTo({
+                        center: coordinates, // Use the coordinates from the feature
+                        zoom: 18,          // Set a desired zoom level (adjust as needed)
+                        essential: true    // Mark this animation as essential
+                    });
+                    // You could also use map.easeTo() or map.jumpTo()
+                    // map.easeTo({ center: coordinates, zoom: 15 });
+                    // map.jumpTo({ center: coordinates, zoom: 15 });
+
+                    // 2. Remove existing popup, if any
+                    if (currentFacilityPopup) {
+                        currentFacilityPopup.remove();
+                        currentFacilityPopup = null; // Clear the reference
+                    }
+
+                    // Fetch flood level asynchronously
+                    let floodLevel = "Loading...";
+                    try {
+                        const result = await fetchBand1Value(coordinates[0], coordinates[1]);
+                        floodLevel = result.level || "Unknown";
+                        floodValue = +result.value.toFixed(2) || "Unknown";
+                    } catch (err) {
+                        console.error("Failed to fetch flood level:", err);
+                        floodLevel = "Unavailable";
+                    }
+
+                    let textColor = floodLevel === "High Flood Level" ? "red" :
+                                floodLevel === "Moderate Flood Level" ? "orange" :
+                                floodLevel === "Low Flood Level" ? "#F5C548" : "green";
+
+                    // 3. Create and display the new popup
+                    // The default popup style has an anchor pointing down ('bottom'), fulfilling the "dot below it" idea
+                    currentFacilityPopup = new mapboxgl.Popup({
+                        closeButton: true,
+                        closeOnClick: false,
+                        offset: 15
+                    })
+                    .setLngLat(coordinates)
+                    .setHTML(`
+                        <div>
+                            <p class="fw-semibold lh-sm text-darkBlue m-0 text-wrap" style="max-width: 90%;">${name}</p>
+                            <h4 class="fw-bold m-0" style="color:${textColor};">${floodLevel}</h4>
+                            <h6 class="fw-normal fst-italic m-0" style="color:${textColor};">${floodValue} meters</h6>
+                            
+                           
+                        </div>
+                    `)
+                    .addTo(map);
+
+                    // Apply rounded corners to the popup container
+                    const popupEl = currentFacilityPopup.getElement();
+                    const contentEl = popupEl.querySelector('.mapboxgl-popup-content');
+                    if (contentEl) {
+                        contentEl.style.borderRadius = '12px';
+                        contentEl.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.2)';
+                    }
+
+                    currentFacilityPopup.on('close', () => {
+                        currentFacilityPopup = null;
+                    });
+                });
+
+                // Append the card to the facility list
+                locationList.appendChild(card);
+            });
+        });
+    }
+
+    /**
+     * Fetches a CSV file with date/time info, parses it, and formats rows for a dropdown.
+     * Assumes CSV columns: Year, Month, Day, Hour, PredictedFWaterLevel
+     * Creates objects { text: "Formatted Date/Time", index: rowNumber }
+     * @param {string} csvUrl - The path/URL to the CSV file.
+     * @returns {Promise<Array<{text: string, index: number}>>} A promise that resolves with an array of objects.
+     */
+    async function loadAndFormatCsvForDropdown(csvUrl) {
+        // --- THIS FUNCTION REMAINS THE SAME AS THE PREVIOUS ANSWER ---
+        // (Includes fetch, parse, format logic)
+        console.log(`Workspaceing CSV data for dropdown from: ${csvUrl}`);
+        try {
+            const response = await fetch(csvUrl);
+            if (!response.ok) { throw new Error(`HTTP error! Status: ${response.status} - Failed to fetch ${csvUrl}`); }
+
+            // --- Get and Log the Last-Modified Header ---
+            const headers = response.headers; // Get the Headers object
+            const lastModifiedHeader = headers.get('Last-Modified'); // Get the specific header value
+
+            if (lastModifiedHeader) {
+                console.log(`CSV File Last Modified (from header): ${lastModifiedHeader}`);
+                try {
+                    // Optionally, convert it to a JavaScript Date object for further use/formatting
+                    const lastModifiedDate = new Date(lastModifiedHeader);
+                    console.log(`CSV File Last Modified (as Date object):`, lastModifiedDate);
+
+                    // Example: You could display this date somewhere on your page
+                    const displayElement = document.getElementById('update');
+                    if (displayElement) {
+                        displayElement.innerHTML = `<small>Map predictions last updated at ${lastModifiedDate.toLocaleString()}.</small>`; // Format as needed
+                    }
+
+                } catch(dateParseError) {
+                    console.warn("Could not parse Last-Modified header string into a Date object:", dateParseError);
+                }
+            } else {
+                // This means the server didn't send the header for this file
+                console.log("Server did not send a Last-Modified header for the CSV file.");
+            }
+            
+            const csvText = await response.text();
+            console.log("CSV text fetched successfully.");
+            const lines = csvText.trim().split('\n');
+            const dropdownItemsData = [];
+            const dateTimeFormatter = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', /*minute: '2-digit',*/ hour12: true });
+
+            for (let i = 1; i < lines.length; i++) {
+                const line = lines[i].trim();
+                if (line === "") continue;
+                const columns = line.split(',');
+                if (columns.length >= 4) {
+                    const year = parseInt(columns[0].trim(), 10);
+                    const month = parseInt(columns[1].trim(), 10);
+                    const day = parseInt(columns[2].trim(), 10);
+                    const hour = parseInt(columns[3].trim(), 10);
+                    if (isNaN(year) || isNaN(month) || isNaN(day) || isNaN(hour)) { console.warn(`Skipping line ${i + 1}: Invalid date/time components. Line: "${line}"`); continue; }
+                    try {
+                        const dateObject = new Date(year, month - 1, day, hour);
+                        let formattedString = dateTimeFormatter.format(dateObject);
+                        if (!formattedString.includes(':')) { formattedString = formattedString.replace(/ (AM|PM)$/, ':00 $1'); } // Add :00 if needed
+                        dropdownItemsData.push({ text: formattedString, index: i - 1 });
+                    } catch (dateError) { console.warn(`Skipping line ${i + 1}: Could not create Date object. Error: ${dateError.message}. Line: "${line}"`); }
+                } else { console.warn(`Skipping line ${i + 1}: Expected at least 4 columns, found ${columns.length}. Line: "${line}"`); }
+            }
+            console.log(`Successfully parsed ${dropdownItemsData.length} data rows for dropdown.`);
+            return dropdownItemsData;
+        } catch (error) { console.error("Error loading or parsing CSV data for dropdown:", error); return []; }
+        // --- END OF UNCHANGED FUNCTION ---
+    }
+
+    // --- How to Use (Modified for Multiple Dropdowns) ---
+
+    const csvFilePath = '../static/flood_predictions.csv'; // <--- CHANGE TO YOUR CSV FILE PATH
+    const menuSelector = '.tileset-dropdown-menu'; // <--- Use the class selector for the <ul> elements
+
+    // Get all menu elements that need updating
+    const dropdownMenus = document.querySelectorAll(menuSelector);
+
+    if (dropdownMenus.length === 0) {
+        console.error(`No dropdown menus found using selector "${menuSelector}"!`);
+    } else {
+        console.log(`Found ${dropdownMenus.length} dropdown menus to populate.`);
+        loadAndFormatCsvForDropdown(csvFilePath)
+            .then(itemsData => {
+                if (itemsData && itemsData.length > 0) {
+                    console.log("Formatted Dropdown Items Data:", itemsData);
+
+                    // --- Loop through each dropdown menu found ---
+                    dropdownMenus.forEach((menuElement, menuIndex) => {
+                        console.log(`Populating menu #${menuIndex + 1}`);
+
+                        // --- Try to find the corresponding button for this menu ---
+                        // Assumes button is the direct previous sibling or within the same parent .dropdown div
+                        let buttonElement = menuElement.previousElementSibling;
+                        // If button is not direct sibling, try finding within parent .dropdown
+                        if (!buttonElement || !buttonElement.classList.contains('dropdown-toggle')) {
+                        const parentDropdown = menuElement.closest('.dropdown');
+                        if(parentDropdown) {
+                                buttonElement = parentDropdown.querySelector('.dropdown-toggle');
+                        }
+                        }
+
+                        if (!buttonElement) {
+                            console.warn(`Could not find corresponding button for menu #${menuIndex + 1}`);
+                        }
+                        // ----------------------------------------------------------
+
+                        // Clear existing dynamic options from *this specific menu*
+                        menuElement.innerHTML = '<li><h6 class="dropdown-header">Show predictions for...</h6></li>'; // Reset with header
+
+
+                        // Populate *this specific menu*
+                        itemsData.forEach(item => {
+                            const listItem = document.createElement('li');
+                            const link = document.createElement('a');
+                            link.classList.add('dropdown-item', 'text-darkBlue'); // Add your classes
+                            link.href = '#';
+                            link.textContent = item.text;
+                            // IMPORTANT: Store the index associated with this row/layer
+                            link.dataset.tilesetIndex = item.index; // e.g., data-tileset-index="0"
+
+                            listItem.appendChild(link);
+                            menuElement.appendChild(listItem);
+                        });
+
+                        // Optional: Set the corresponding button text to the first item initially
+                        if (buttonElement) {
+                            buttonElement.textContent = itemsData[0].text;
+                        }
+
+                    }); // --- End loop through each menu ---
+
+                    console.log("All dropdowns populated dynamically.");
+
+                    // REMINDER: Ensure your click event listener(s) for the dropdown items
+                    // are set up correctly to handle clicks from items in *either* dropdown menu.
+                    // Using event delegation on a parent element or querySelectorAll might be needed.
+
+                } else {
+                    console.log("No dropdown options generated from CSV.");
+                    // Update all buttons if no data
+                    dropdownMenus.forEach((menuElement, menuIndex) => {
+                        let buttonElement = menuElement.previousElementSibling;
+                        if (!buttonElement || !buttonElement.classList.contains('dropdown-toggle')) {
+                            const parentDropdown = menuElement.closest('.dropdown');
+                            if(parentDropdown) { buttonElement = parentDropdown.querySelector('.dropdown-toggle'); }
+                        }
+                        if (buttonElement) {
+                            buttonElement.textContent = "No predictions";
+                        }
+                    });
+                }
+            })
+            .catch(error => {
+                console.error("An unexpected error occurred during dropdown population:", error);
+            });
+    }
+
+    function loadTop5FromCSV(selectedIndex) {
+        const filePath = `../static/reports/top5_${selectedIndex}.csv`;
+
+        fetch(filePath)
+            .then(response => {
+                if (!response.ok) throw new Error("File not found");
+                return response.text();
+            })
+            .then(csvText => {
+                const lines = csvText.trim().split("\n");
+                const headers = lines[0].split(",").map(h => h.trim());
+
+                const data = lines.slice(1).map(line => {
+                    const values = line.split(",");
+                    const obj = {};
+
+                    headers.forEach((header, i) => {
+                        // Use empty string if value is missing
+                        obj[header] = (values[i] || "").trim();
+                    });
+
+                    return obj;
+                });
+
+                displayTop5Barangays(data);
+            })
+            .catch(err => {
+                console.error("Error loading CSV:", err);
+                document.getElementById("top5-barangays").innerHTML = "Could not load data.";
+            });
+    }
+
+    function displayTop5Barangays(data) {
+        const container = document.getElementById("toast-container");
+        container.innerHTML = ""; // Clear previous toasts
+
+        const listItems = data.map((item, index) => {
+            const keys = Object.keys(item);
+            const barangay = item.Barangay || "Unknown";
+            const floodValue = item[keys[1]] || "N/A";
+
+            return `<div class="fs-6"><strong>#${index + 1}</strong> ${barangay} — <span class="fw-bold">${floodValue} m </div>`;
+        }).join("");
+
+        const toast = document.createElement("div");
+        toast.className = "toast text-darkBlue bg-white border-0 rounded-3 show";
+        toast.setAttribute("role", "alert");
+        toast.setAttribute("aria-live", "polite");
+        toast.setAttribute("aria-atomic", "true");
+
+        toast.innerHTML = `
+            <div class="toast-header">
+                <strong class="me-auto fs-6 text-darkBlue">Barangays at most risk</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                <div class="mb-0 mt-2">${listItems}</div>
+            </div>
+        `;
+
+        container.appendChild(toast);
+        new bootstrap.Toast(toast, { autohide: false }).show();
+
+    }
+
+
+    
+
+    </script>
+</body>
+</html>
